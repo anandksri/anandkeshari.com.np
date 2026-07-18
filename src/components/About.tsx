@@ -56,7 +56,7 @@ export default function About({ glowTheme }: AboutProps = {}) {
                     <span className="text-[10px] font-mono text-violet-400 font-bold uppercase tracking-wider bg-violet-500/10 px-2 py-0.5 rounded border border-violet-500/5">
                       2024 - 2026
                     </span>
-                    <span className="text-[9px] font-mono text-slate-500 uppercase tracking-widest">Ongoing</span>
+                     <span className="text-[9px] font-mono text-emerald-400 uppercase tracking-widest">Completed</span>
                   </div>
                   <h4 className="text-base font-bold text-white font-display pt-1">
                     HIGH SCHOOL
