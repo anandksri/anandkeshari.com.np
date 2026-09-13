@@ -12,7 +12,7 @@ The website is built to showcase:
 - Security-focused projects and practical learning work
 - Software development projects
 - Technical skills and experience
-- The Cyber Pioneer and related community work
+- TC Pioneer and related community work
 - Contact and professional information
 
 ## Tech Stack
@@ -65,7 +65,7 @@ npm run clean
 
 ```text
 src/             React application source
-public/           Static assets
+public/          Static assets
 index.html       Website entry point and SEO metadata
 vite.config.ts   Vite configuration
 ```
