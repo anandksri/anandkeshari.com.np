@@ -1,8 +1,41 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&family=Outfit:wght@400;500;600;700;800&family=Frijole&family=Jersey+10+Charted&family=Righteous&family=Vast+Shadow&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/geist";
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid #4ade80;
+  outline-offset: 4px;
+}
+
+.skip-link {
+  position: fixed;
+  left: 16px;
+  top: -80px;
+  z-index: 999;
+  border: 1px solid #4ade80;
+  background: #020504;
+  padding: 10px 14px;
+  color: #4ade80;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  transition: top 160ms ease;
+}
+
+.skip-link:focus {
+  top: 16px;
+}
 
 ::selection {
   background: rgba(74, 222, 128, .28);

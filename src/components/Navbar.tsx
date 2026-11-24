@@ -145,6 +145,7 @@ export default function Navbar({ glowTheme, onToggleTheme }: NavbarProps) {
               id="mobile-menu-btn"
               aria-label={isOpen ? 'Close navigation' : 'Open navigation'}
               aria-expanded={isOpen}
+              aria-controls="mobile-nav-drawer"
             >
               {isOpen ? <X size={20} /> : <Menu size={20} />}
             </button>

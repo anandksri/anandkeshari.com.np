@@ -3,7 +3,6 @@ import { Github, Linkedin, Mail, Send } from 'lucide-react';
 import { PERSONAL_INFO } from '../data';
 import {
   TerminalAnimationRoot,
-  TerminalAnimationContainer,
   TerminalAnimationWindow,
   TerminalAnimationContent,
   TerminalAnimationOutput,
@@ -138,12 +137,12 @@ export default function Contact() {
               </div>
             ) : (
               <form onSubmit={submit} className="terminal-form">
-                <label>sender_name</label>
-                <input name="name" required minLength={2} maxLength={80} placeholder="anonymous@node" />
-                <label>return_channel</label>
-                <input name="email" required type="email" maxLength={254} placeholder="you@example.com" />
-                <label>payload</label>
-                <textarea name="message" required minLength={10} maxLength={3000} rows={5} placeholder="Describe the operation..." />
+                <label htmlFor="contact-name">sender_name</label>
+                <input id="contact-name" name="name" required minLength={2} maxLength={80} placeholder="anonymous@node" autoComplete="name" />
+                <label htmlFor="contact-email">return_channel</label>
+                <input id="contact-email" name="email" required type="email" maxLength={254} placeholder="you@example.com" autoComplete="email" />
+                <label htmlFor="contact-message">payload</label>
+                <textarea id="contact-message" name="message" required minLength={10} maxLength={3000} rows={5} placeholder="Describe the operation..." />
                 <input name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
                 {error && <p className="col-span-full font-mono text-[9px] text-red-400" role="alert">{error}</p>}
                 <button type="submit" disabled={sending}><Send size={13} /> {sending ? 'transmitting...' : 'transmit_packet'}</button>

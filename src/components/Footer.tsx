@@ -46,6 +46,7 @@ export default function Footer({ glowTheme }: FooterProps) {
               onClick={handleScrollTop}
               className="grid h-9 w-9 place-items-center border border-slate-800 text-slate-500 transition-all hover:border-emerald-400/50 hover:text-emerald-400"
               title="Scroll to top"
+              aria-label="Scroll to top"
               id="scroll-to-top-btn"
             >
               <ArrowUp size={14} />
@@ -62,7 +63,15 @@ export default function Footer({ glowTheme }: FooterProps) {
             <a href="https://tcpioneer.org" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400">TCPIONEER.ORG</a>
             <span className="text-slate-800">/</span>
             <a href="https://learn.tcpioneer.org" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400">LEARN.TCPIONEER.ORG</a>
+            <span className="text-slate-800">/</span>
+            <a href="#privacy" className="hover:text-emerald-400">PRIVACY</a>
           </div>
+        </div>
+        <div id="privacy" className="mt-6 border-t border-slate-800/80 pt-5 text-xs leading-6 text-slate-600">
+          <h2 className="sr-only">Privacy notice</h2>
+          <p>
+            <strong className="text-slate-400">Privacy notice:</strong> The contact form sends the name, email address and message you provide to Anand through Gmail for direct follow-up. It does not run analytics or advertising cookies. You can request deletion of a message by emailing the address shown on this website.
+          </p>
         </div>
       </div>
     </footer>

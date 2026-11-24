@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import { ArrowDownRight, Github, Linkedin, Mail } from 'lucide-react';
 import profileImg from '../assets/images/anand0x01.png';
 import { PERSONAL_INFO } from '../data';
-import DotGrid from '../../components/DotGrid';
 
 export default function Hero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -30,6 +29,8 @@ export default function Hero() {
       canvas.height = rect.height * ratio;
       context.setTransform(ratio, 0, 0, ratio, 0, 0);
     };
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const nodes = Array.from({ length: 28 }, (_, index) => ({
       x: ((index * 83) % 997) / 997,
@@ -85,7 +86,12 @@ export default function Hero() {
     };
 
     resize();
-    draw();
+    if (reducedMotion) {
+      draw();
+      window.cancelAnimationFrame(animationId);
+    } else {
+      draw();
+    }
     canvas.addEventListener('pointermove', move);
     window.addEventListener('resize', resize);
 
@@ -117,20 +123,7 @@ export default function Hero() {
 
   return (
     <section id="home" className="identity-section relative flex min-h-[780px] items-center overflow-hidden pt-24 lg:min-h-screen">
-      <canvas ref={canvasRef} className="identity-network absolute inset-0 h-full w-full" />
-      <div className="absolute inset-y-0 right-0 hidden w-[46%] opacity-30 lg:block">
-        <DotGrid
-          dotSize={2}
-          gap={16}
-          baseColor="#334155"
-          activeColor="#4ade80"
-          proximity={110}
-          strength={0.7}
-          glow={0.35}
-          shape="circle"
-          className="h-full w-full"
-        />
-      </div>
+      <canvas ref={canvasRef} className="identity-network absolute inset-0 h-full w-full" aria-hidden="true" />
       <div className="identity-orbit identity-orbit-one" />
       <div className="identity-orbit identity-orbit-two" />
 
@@ -199,7 +192,7 @@ export default function Hero() {
               onMouseLeave={() => setTilt({ x: 0, y: 0 })}
               style={{ transform: `perspective(900px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)` }}
             >
-              <img src={profileImg} alt="Anand Keshari" />
+              <img src={profileImg} alt="Portrait of Anand Keshari" width="390" height="410" loading="eager" fetchPriority="high" />
               <div className="specimen-slice specimen-slice-a" />
               <div className="specimen-slice specimen-slice-b" />
               <div className="specimen-reticle"><i /><i /><i /><i /></div>

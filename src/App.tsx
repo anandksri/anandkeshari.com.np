@@ -6,6 +6,7 @@ import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import Faq from './components/Faq';
 
 export default function App() {
   const [glowTheme, setGlowTheme] = useState<'violet' | 'teal'>('teal');
@@ -28,7 +29,11 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const bootTimer = window.setTimeout(() => setBooting(false), 1800);
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setBooting(false);
+      return;
+    }
+    const bootTimer = window.setTimeout(() => setBooting(false), 900);
     const handleKeys = (event: KeyboardEvent) => {
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
         event.preventDefault();
@@ -95,11 +100,12 @@ export default function App() {
       {/* Sticky Top-level Navigation */}
       <Navbar glowTheme={glowTheme} onToggleTheme={toggleGlowTheme} />
 
-      <main className="relative z-10">
+      <main id="main-content" className="relative z-10" tabIndex={-1}>
         <Hero />
         <About />
         <Experience />
         <Projects />
+        <Faq />
         <Contact />
       </main>
 
