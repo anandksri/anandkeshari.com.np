@@ -6,38 +6,37 @@ interface FooterProps {
 }
 
 export default function Footer({ glowTheme }: FooterProps) {
+  void glowTheme;
   const currentYear = new Date().getFullYear();
-  const accentBorder = glowTheme === 'violet' ? 'border-violet-500/20' : 'border-emerald-500/20';
-  const accentHoverText = glowTheme === 'violet' ? 'hover:text-violet-400' : 'hover:text-emerald-400';
 
   const handleScrollTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <footer id="footer" className="bg-[#03050c] border-t border-white/5 py-12 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
+    <footer id="footer" className="relative overflow-hidden border-t border-slate-800/80 bg-[#020504] py-10">
+      <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8">
+        <div className="mb-8 flex flex-col gap-7 md:flex-row md:items-end md:justify-between">
           {/* Brand details */}
           <div className="space-y-2 text-left">
-            <a href="#home" className="flex items-center space-x-2 font-display text-base font-bold text-white tracking-wider">
-              <span className="font-mono font-extrabold tracking-widest text-violet-400 text-lg slashed-zero">ANAND0X01</span>
+            <a href="#home" className="flex items-center font-mono text-lg font-bold tracking-[0.12em] text-emerald-400">
+              ANAND0X01
             </a>
-            <p className="text-xs text-slate-400 max-w-sm">
-              Cybersecurity researcher and IoT developer. Raising digital safety barriers through transparent learning pathways.
+            <p className="max-w-sm text-xs leading-6 text-slate-500">
+              Cybersecurity, secure software and hands-on engineering from Kathmandu.
             </p>
           </div>
 
           {/* Social icons & Quick Links */}
-          <div className="flex flex-wrap items-center gap-6">
-            <div className="flex space-x-3 text-gray-500">
-              <a href={PERSONAL_INFO.socials.github} target="_blank" rel="noopener noreferrer" className={`p-2 rounded-xl bg-slate-950/80 border border-white/5 text-gray-400 hover:text-white ${accentBorder} transition-all`}>
+          <div className="flex items-center justify-between gap-4 sm:justify-start">
+            <div className="flex gap-2 text-slate-500">
+              <a aria-label="GitHub" href={PERSONAL_INFO.socials.github} target="_blank" rel="noopener noreferrer" className="grid h-9 w-9 place-items-center border border-slate-800 transition-all hover:border-emerald-400/50 hover:text-emerald-400">
                 <Github size={15} />
               </a>
-              <a href={PERSONAL_INFO.socials.linkedin} target="_blank" rel="noopener noreferrer" className={`p-2 rounded-xl bg-slate-950/80 border border-white/5 text-gray-400 hover:text-white ${accentBorder} transition-all`}>
+              <a aria-label="LinkedIn" href={PERSONAL_INFO.socials.linkedin} target="_blank" rel="noopener noreferrer" className="grid h-9 w-9 place-items-center border border-slate-800 transition-all hover:border-emerald-400/50 hover:text-emerald-400">
                 <Linkedin size={15} />
               </a>
-              <a href={PERSONAL_INFO.socials.instagram} target="_blank" rel="noopener noreferrer" className={`p-2 rounded-xl bg-slate-950/80 border border-white/5 text-gray-400 hover:text-white ${accentBorder} transition-all`}>
+              <a aria-label="Instagram" href={PERSONAL_INFO.socials.instagram} target="_blank" rel="noopener noreferrer" className="grid h-9 w-9 place-items-center border border-slate-800 transition-all hover:border-emerald-400/50 hover:text-emerald-400">
                 <Instagram size={15} />
               </a>
             </div>
@@ -45,7 +44,7 @@ export default function Footer({ glowTheme }: FooterProps) {
             {/* Scroll top */}
             <button
               onClick={handleScrollTop}
-              className="p-2.5 rounded-xl bg-slate-950 border border-white/5 hover:border-violet-500/30 text-gray-400 hover:text-white transition-all cursor-pointer"
+              className="grid h-9 w-9 place-items-center border border-slate-800 text-slate-500 transition-all hover:border-emerald-400/50 hover:text-emerald-400"
               title="Scroll to top"
               id="scroll-to-top-btn"
             >
@@ -55,14 +54,14 @@ export default function Footer({ glowTheme }: FooterProps) {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-left">
-          <p className="text-[11px] font-mono slashed-zero text-slate-500">
-            © {currentYear} Anand0x01. Crafted for secure digital development.
+        <div className="flex flex-col gap-4 border-t border-slate-800/80 pt-6 text-left sm:flex-row sm:items-center sm:justify-between">
+          <p className="font-mono text-[9px] text-slate-600">
+            © {currentYear} ANAND0X01 // ALL RIGHTS RESERVED
           </p>
-          <div className="flex space-x-4 text-[11px] font-mono text-slate-500">
-            <a href="https://tcpioneer.org" target="_blank" rel="noopener noreferrer" className="hover:text-violet-400 transition-colors">tcpioneer.org</a>
-            <span>•</span>
-            <a href="https://learn.tcpioneer.org" target="_blank" rel="noopener noreferrer" className="hover:text-violet-400 transition-colors">learn.tcpioneer.org</a>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 font-mono text-[9px] text-slate-600">
+            <a href="https://tcpioneer.org" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400">TCPIONEER.ORG</a>
+            <span className="text-slate-800">/</span>
+            <a href="https://learn.tcpioneer.org" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400">LEARN.TCPIONEER.ORG</a>
           </div>
         </div>
       </div>

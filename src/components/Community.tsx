@@ -11,17 +11,6 @@ export default function Community({ glowTheme }: CommunityProps) {
   const activeBg = glowTheme === 'violet' ? 'bg-violet-600/25 text-violet-400' : 'bg-emerald-600/25 text-emerald-400';
   const activeBorder = glowTheme === 'violet' ? 'border-violet-500/35' : 'border-emerald-500/35';
 
-  const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setOrgLogo(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
   const pillars = [
     {
       title: "Our Mission",

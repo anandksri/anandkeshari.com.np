@@ -1,154 +1,70 @@
 import { useState } from 'react';
-import { PROJECTS, Project } from '../data';
-import { FolderCode, Github, ExternalLink, Sparkles, Terminal } from 'lucide-react';
+import { Github, ExternalLink, Search } from 'lucide-react';
+import { PROJECTS } from '../data';
+import { Badge } from '../../components/ui/badge';
 
-interface ProjectsProps {
-  glowTheme?: 'violet' | 'teal';
-}
+export default function Projects() {
+  const [filter, setFilter] = useState<'all' | 'web' | 'cyber' | 'iot'>('all');
+  const [query, setQuery] = useState('');
+  const [selected, setSelected] = useState(PROJECTS[0]);
 
-export default function Projects({ glowTheme }: ProjectsProps = {}) {
-  const [activeFilter, setActiveFilter] = useState<'all' | 'web' | 'cyber' | 'lab'>('all');
-
-  const filteredProjects = PROJECTS.filter(
-    (proj) => activeFilter === 'all' || proj.category === activeFilter
+  const filtered = PROJECTS.filter((project) =>
+    (filter === 'all' || project.category === filter) &&
+    `${project.title} ${project.description} ${project.tags.join(' ')}`.toLowerCase().includes(query.toLowerCase())
   );
 
-  const activeText = 'text-violet-400';
-  const activeBg = 'bg-violet-600/25 text-violet-400';
-  const activeBorder = 'border-violet-500/30';
-  const glowShadow = 'shadow-[0_0_15px_rgba(124,58,237,0.1)]';
-
-  const filterTabs = [
-    { id: 'all', label: 'All Projects' },
-    { id: 'web', label: 'Web Portals' },
-    { id: 'cyber', label: 'Cyber Security' },
-    { id: 'lab', label: 'Docker & Labs' },
-  ] as const;
-
   return (
-    <section id="projects" className="py-24 relative overflow-hidden bg-slate-950/40 border-y border-white/5">
-      {/* background noise decoration */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(15,23,42,0.15),transparent)] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Section Header */}
-        <div className="text-left max-w-3xl mb-16">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-md bg-violet-500/10 border border-violet-500/10 text-xs font-mono text-violet-400 mb-4 uppercase tracking-widest">
-            <FolderCode size={12} />
-            <span>DEVELOPMENT HUBS</span>
+    <section id="projects" className="border-y border-slate-800/80 py-20 sm:py-28">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        <div className="mb-10 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+          <div>
+            <p className="mb-4 font-mono text-[10px] tracking-[0.18em] text-emerald-400">03 / PROJECT EXPLORER</p>
+            <h2 className="text-4xl font-black tracking-[-0.04em] text-white sm:text-6xl">SELECTED <span className="text-outline">WORK</span></h2>
           </div>
-          <h2 className="text-4xl sm:text-5xl font-display font-black text-white tracking-tight leading-none">
-            Featured Projects & Codebases
-          </h2>
+          <div className="flex h-10 items-center border border-slate-800 px-3 text-slate-600">
+            <Search size={13} />
+            <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="grep projects" className="ml-2 w-36 bg-transparent font-mono text-[10px] text-slate-300 outline-none" />
+          </div>
         </div>
 
-        {/* Filters Panel */}
-        <div className="flex flex-wrap justify-start gap-2.5 mb-12" id="projects-filters">
-          {filterTabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveFilter(tab.id)}
-              className={`px-4 py-2 rounded-lg font-mono text-xs uppercase tracking-wider border transition-all cursor-pointer ${
-                activeFilter === tab.id
-                  ? activeBg + ' ' + activeBorder + ' ' + glowShadow
-                  : 'bg-slate-900/40 border-white/5 text-gray-400 hover:text-white hover:border-white/10'
-              }`}
-            >
-              {tab.label}
+        <div className="mb-5 flex flex-wrap gap-2">
+          {(['all', 'web', 'cyber', 'iot'] as const).map((item) => (
+            <button key={item} onClick={() => setFilter(item)} className={`filter-chip ${filter === item ? 'filter-chip-active' : ''}`}>
+              [{item}]
             </button>
           ))}
         </div>
 
-        {/* Projects Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="projects-grid">
-          {filteredProjects.map((proj) => (
-            <div
-              key={proj.id}
-              className="bg-slate-950/60 backdrop-blur-md rounded-2xl border border-white/10 p-6 flex flex-col justify-between hover:translate-y-[-6px] transition-all duration-300 group overflow-hidden hover:border-violet-500/30 shadow-[0_15px_40px_rgba(0,0,0,0.6)] hover:shadow-[0_20px_50px_rgba(124,58,237,0.15)]"
-              id={`project-card-${proj.id}`}
-            >
-              <div>
-                {/* Header / Badges */}
-                <div className="flex justify-between items-start mb-4">
-                  <span className="font-mono text-xs text-gray-600 font-bold tracking-wider uppercase">
-                    0{proj.id}
-                  </span>
-                  
-                  <div className="flex items-center space-x-2">
-                    {proj.featured && (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[9px] font-mono font-bold tracking-wider uppercase bg-violet-950/50 text-violet-300 border border-violet-500/20">
-                        <Sparkles size={8} />
-                        <span>FEATURED</span>
-                      </span>
-                    )}
-                    <span className="text-[10px] font-mono text-gray-500 px-2 py-0.5 rounded bg-slate-950 border border-white/5 uppercase">
-                      {proj.category}
-                    </span>
-                  </div>
-                </div>
+        <div className="project-explorer">
+          <div className="project-sidebar">
+            {filtered.map((project, index) => (
+              <button key={project.id} onClick={() => setSelected(project)} className={`project-row ${selected.id === project.id ? 'project-row-active' : ''}`}>
+                <span className="text-emerald-400">0{index + 1}</span>
+                <span className="truncate">{project.title}</span>
+              </button>
+            ))}
+            {filtered.length === 0 && <p className="p-4 font-mono text-[10px] text-slate-600">NO MATCHES FOUND</p>}
+          </div>
 
-                {/* Title */}
-                <h3 className="text-lg font-bold text-white group-hover:text-violet-400 font-display text-left">
-                  {proj.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-xs sm:text-sm text-gray-400 mt-3 text-left leading-relaxed">
-                  {proj.description}
-                </p>
-
-                {/* Tech Badges */}
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  {proj.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-[10px] font-mono text-gray-500 px-2 py-0.5 rounded bg-slate-900 border border-white/5"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+          <article className="project-detail">
+            <div className="project-detail-grid" />
+            <div className="relative z-10">
+              <div className="flex items-center justify-between border-b border-slate-800 pb-4 font-mono text-[9px] text-slate-600">
+                <span>./projects/{selected.id}</span>
+                <Badge variant="success" className="border border-emerald-400/25 bg-emerald-400/10 font-mono text-[8px] text-emerald-400">STATUS: SHIPPED</Badge>
               </div>
-
-              {/* Action Links */}
-              <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between">
-                <span className="flex items-center text-[10px] font-mono text-gray-500 gap-1.5">
-                  <Terminal size={10} className={activeText} />
-                  <span>Public Project</span>
-                </span>
-                
-                <div className="flex space-x-2.5">
-                  {proj.github && (
-                    <a
-                      href={proj.github}
-                      target="_blank"
-                      referrerPolicy="no-referrer"
-                      rel="noopener noreferrer"
-                      className="p-1.5 rounded bg-slate-900 text-gray-400 hover:text-white border border-white/5 hover:border-white/10 transition-colors"
-                      title="View GitHub Repository"
-                    >
-                      <Github size={14} />
-                    </a>
-                  )}
-                  {proj.demo && (
-                    <a
-                      href={proj.demo}
-                      target="_blank"
-                      referrerPolicy="no-referrer"
-                      rel="noopener noreferrer"
-                      className="p-1.5 rounded bg-slate-900 text-gray-400 hover:text-white border border-white/5 hover:border-white/10 transition-colors"
-                      title="Live Demonstration Link"
-                    >
-                      <ExternalLink size={14} />
-                    </a>
-                  )}
-                </div>
+              <h3 className="mt-8 text-3xl font-black tracking-tight text-white sm:text-5xl">{selected.title}</h3>
+              <p className="mt-5 max-w-xl text-sm leading-7 text-slate-400">{selected.description}</p>
+              <div className="mt-6 flex flex-wrap gap-2">
+                {selected.tags.map((tag) => <span key={tag} className="border border-slate-800 px-2 py-1 font-mono text-[9px] text-slate-500">{tag}</span>)}
+              </div>
+              <div className="mt-10 flex gap-3">
+                {selected.github && <a href={selected.github} target="_blank" rel="noreferrer" className="command-button"><Github size={13} /> SOURCE</a>}
+                {selected.demo && <a href={selected.demo} target="_blank" rel="noreferrer" className="command-button command-button-solid"><ExternalLink size={13} /> LIVE</a>}
               </div>
             </div>
-          ))}
+          </article>
         </div>
-
       </div>
     </section>
   );
